@@ -15,4 +15,7 @@
     <string name="label_login_hint">Enter login</string>
     <string name="label_password_hint">Enter password</string>
     <string name="label_login_button">Login</string>
+    <string name="example_name">Example name</string>
+    <string name="label_open_list_button">Open list</string>
+
 </resources>

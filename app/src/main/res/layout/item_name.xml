@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_padding"> <!-- Используем уже определенный размер -->
+
+    <!-- TextView для отображения имени -->
+    <TextView
+        android:id="@+id/textViewItemName"
+        style="@style/Widget.App.TextView.Display"
+        android:textSize="@dimen/text_size_default"
+        android:textColor="@color/text_color_primary"
+        tools:text="@string/example_name"/> <!-- tools:text для предпросмотра в редакторе -->
+
+</LinearLayout>

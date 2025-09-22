@@ -120,4 +120,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Кнопка для перехода к списку -->
+    <Button
+        android:id="@+id/buttonOpenList"
+        android:text="@string/label_open_list_button"
+        style="@style/Widget.App.Button"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDisplay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/element_spacing_large"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

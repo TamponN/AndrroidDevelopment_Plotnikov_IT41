@@ -1,6 +1,7 @@
 package com.example.app
 
 // Импорт библиотек для логирования и работы с экранными компонентами
+import android.content.Intent
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
@@ -10,17 +11,7 @@ import android.widget.Toast
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.text
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.app.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -28,9 +19,10 @@ class MainActivity : ComponentActivity() {
     private val TAG = "MainActivityLifecycle"
 
     // Объявляем переменные для наших View элементов lateinit означает что мы инициализируем их позже
-    private lateinit var editTextLogin: EditText
-    private lateinit var buttonLogin: Button
-    private lateinit var textViewDisplay: TextView
+    private lateinit var _editTextLogin: EditText
+    private lateinit var _buttonLogin: Button
+    private lateinit var _textViewDisplay: TextView
+    private lateinit var _buttonOpenList: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +33,37 @@ class MainActivity : ComponentActivity() {
         Log.d(TAG, "onCreate: Activity создается")
 
         // Инициализируем наши View элементы, находя их по ID из XML-макета
-        editTextLogin = findViewById(R.id.editTextLogin)
-        buttonLogin = findViewById(R.id.buttonLogin)
-        textViewDisplay = findViewById(R.id.textViewDisplay)
+        _editTextLogin = findViewById(R.id.editTextLogin)
+        _buttonLogin = findViewById(R.id.buttonLogin)
+        _textViewDisplay = findViewById(R.id.textViewDisplay)
+        _buttonOpenList = findViewById(R.id.buttonOpenList)
 
         // Слушатель события на нажатие кнопки
-        buttonLogin.setOnClickListener {
+        _buttonLogin.setOnClickListener {
             // Извлекаем текст из EditText
-            val userInputText = editTextLogin.text.toString()
+            val userInputText = _editTextLogin.text.toString()
 
             // Проверяем, не пустой ли текст
             if (userInputText.isNotBlank()) {
                 // Используем getString() для форматированных строк из ресурсов
-                val toastMessage = getString(R.string.toast_your_text, editTextLogin.text)
+                val toastMessage = getString(R.string.toast_your_text, _editTextLogin.text)
                 // текст в Toast-уведомление
                 Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
 
                 // И текст в TextView на экране
-                textViewDisplay.text = userInputText
+                _textViewDisplay.text = userInputText
             } else {
                 // Если поле ввода пустое
                 Toast.makeText(this, "Пожалуйста, введите текст", Toast.LENGTH_SHORT).show()
-                textViewDisplay.text = "Вы ничего не ввели" // Очищаем или устанавливаем сообщение по умолчанию
+                _textViewDisplay.text = "Вы ничего не ввели" // Очищаем или устанавливаем сообщение по умолчанию
             }
+        }
+
+        // Обработчик нажатия на кнопку "октрыть список"
+        _buttonOpenList.setOnClickListener {
+            // интент для перехода на новую активити
+            val intent = Intent(this, ListActivity::class.java)
+            startActivity(intent) // иии запуск активити
         }
     }
 
