@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App</string>
+    <!-- Строки для MainActivity -->
+    <string name="hint_enter_text">Enter text here</string>
+    <string name="button_show_text">Show Text</string>
+    <string name="textview_default_text">Your text will be displayed here</string>
+    <string name="toast_your_text">Your text: %1$s</string> <!-- FormattedString -->
+    <string name="toast_please_enter_text">Please enter text</string>
+    <string name="textview_nothing_entered">You entered nothing</string>
+    <string name="label_login_text">Login</string>
+
+    <!-- Описание для иконки -->
+    <string name="app_icon_description">Application icon</string>
+    <string name="label_login_hint">Enter login</string>
+    <string name="label_password_hint">Enter password</string>
+    <string name="label_login_button">Login</string>
+</resources>

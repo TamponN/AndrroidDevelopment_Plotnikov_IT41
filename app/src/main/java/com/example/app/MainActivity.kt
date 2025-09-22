@@ -52,8 +52,10 @@ class MainActivity : ComponentActivity() {
 
             // Проверяем, не пустой ли текст
             if (userInputText.isNotBlank()) {
+                // Используем getString() для форматированных строк из ресурсов
+                val toastMessage = getString(R.string.toast_your_text, editTextLogin.text)
                 // текст в Toast-уведомление
-                Toast.makeText(this, "Ваш текст: $userInputText", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
 
                 // И текст в TextView на экране
                 textViewDisplay.text = userInputText

@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">Приложение</string>
+    <!-- Строки для MainActivity -->
+    <string name="hint_enter_text">Введите текст здесь</string>
+    <string name="button_show_text">Показать текст</string>
+    <string name="textview_default_text">Здесь будет отображен ваш текст</string>
+    <string name="toast_your_text">Ваш текст: %1$s</string> <!-- ФорматированнаяСтрока -->
+    <string name="toast_please_enter_text">Пожалуйста, введите текст</string>
+    <string name="textview_nothing_entered">Вы ничего не ввели</string>
+    <string name="label_login_text">Вход</string>
+
+    <!-- Описание для иконки -->
+    <string name="app_icon_description">Иконка приложения</string>
+    <string name="label_login_hint">Введите логин</string>
+    <string name="label_password_hint">Введите пароль</string>
+    <string name="label_login_button">Войти</string>
+
 </resources>
