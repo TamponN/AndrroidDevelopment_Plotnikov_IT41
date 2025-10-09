@@ -60,4 +60,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.recyclerview) // Добавил зависимости для RecyclerView
     implementation(libs.material) // Добавил зависимости для Material Design компонентов
+    implementation("androidx.appcompat:appcompat:1.6.1") // Зависимость для стилей приложения
 }
