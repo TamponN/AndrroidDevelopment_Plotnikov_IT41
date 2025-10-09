@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 // Адаптер для списка имен
-class NameAdapter(private val names: List<String>) : RecyclerView.Adapter<NameAdapter.NameViewHolder>() {
+class NameAdapter(
+    private val names: List<String>,
+    private val onItemClick: (String) -> Unit // Принимаем строку
+) : RecyclerView.Adapter<NameAdapter.NameViewHolder>() {
 
     // Хранит ссылки на View-компоненты каждого элемента списка, шобы постоянно по id не искать
     class NameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,6 +35,11 @@ class NameAdapter(private val names: List<String>) : RecyclerView.Adapter<NameAd
         val currentName = names[position]
         // Устанавливаем текст
         holder.nameTextView.text = currentName
+        // Устанавливаем слушатель на весь элемент списка
+        holder.itemView.setOnClickListener {
+            // Вызываем переданную нам функцию, передавая в нее имя нажатого элемента
+            onItemClick(currentName)
+        }
     }
 
     // А это для получения общего кол-ва элементов в списке имён

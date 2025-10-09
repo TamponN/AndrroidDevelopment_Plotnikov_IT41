@@ -12,8 +12,11 @@ import android.widget.Toast
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts // импорт для использования ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity // импорт для использования Activity.RESULT_OK
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
     // Объявляем TAG для логирования
     private val TAG = "MainActivityLifecycle"
@@ -23,6 +26,27 @@ class MainActivity : ComponentActivity() {
     private lateinit var _buttonLogin: Button
     private lateinit var _textViewDisplay: TextView
     private lateinit var _buttonOpenList: Button
+
+    //Создаем обработчик результата от другого Activity
+    private val getResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // код выполнится когда ListActivity вернет результат
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Извлекаем данные из Intent
+            val selectedName = result.data?.getStringExtra(ListActivity.SELECTED_NAME_KEY)
+
+            // Проверяем что имя не пустое и отображаем его
+            if (!selectedName.isNullOrEmpty()) {
+                val displayText = "Выбрано имя: $selectedName"
+                _textViewDisplay.text = displayText
+                Toast.makeText(this, displayText, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Если пользователь просто вернулся назад, не выбрав элемент
+            Toast.makeText(this, "Имя не выбрано", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +85,22 @@ class MainActivity : ComponentActivity() {
 
         // Обработчик нажатия на кнопку "октрыть список"
         _buttonOpenList.setOnClickListener {
+            // Получаем текст из поля для логина, который будем передавать между активити
+            val loginToPass = _editTextLogin.text.toString()
+
+            // Проверяем, что поле не пустое
+            if (loginToPass.isBlank()) {
+                Toast.makeText(this, "Сначала введите логин для передачи", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener // Прерываем выполнение, если логин пуст
+            }
             // интент для перехода на новую активити
             val intent = Intent(this, ListActivity::class.java)
-            startActivity(intent) // иии запуск активити
+
+            // передаём логин в Intent
+            intent.putExtra(ListActivity.LOGIN_KEY, loginToPass)
+
+            // Запускаем Activity с помощью лаунчера, ожидая результат
+            getResultLauncher.launch(intent)
         }
     }
 
