@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <!-- Контейнер для фрагмента-списка -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerList"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <!-- Контейнер для фрагмента-деталей -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerDetail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+
+</LinearLayout>

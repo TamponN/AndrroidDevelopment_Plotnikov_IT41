@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _buttonLogin: Button
     private lateinit var _textViewDisplay: TextView
     private lateinit var _buttonOpenList: Button
+    private lateinit var _buttonOpenFragments: Button
 
     //Создаем обработчик результата от другого Activity
     private val getResultLauncher = registerForActivityResult(
@@ -61,6 +62,13 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonLogin = findViewById(R.id.buttonLogin)
         _textViewDisplay = findViewById(R.id.textViewDisplay)
         _buttonOpenList = findViewById(R.id.buttonOpenList)
+        _buttonOpenFragments = findViewById(R.id.buttonOpenFragments)
+
+        // Слушатель события для активити
+        _buttonOpenFragments.setOnClickListener {
+            val intent = Intent(this, FragmentActivity::class.java)
+            startActivity(intent)
+        }
 
         // Слушатель события на нажатие кнопки
         _buttonLogin.setOnClickListener {

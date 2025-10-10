@@ -29,6 +29,13 @@
             android:label="Список Имен"
             android:theme="@style/Theme.App">
         </activity>
+
+        <activity
+            android:name=".FragmentActivity"
+            android:exported="false"
+            android:label="Фрагменты">
+        </activity>
+
     </application>
 
 </manifest>

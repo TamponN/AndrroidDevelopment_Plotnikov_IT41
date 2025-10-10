@@ -19,5 +19,6 @@
     <string name="label_open_list_button">Open list</string>
     <string name="label_el_list">Список элементов</string>
     <string name="choose_the_el">Выбрать элемент</string>
+    <string name="label_open_fragments_button">Открыть фрагменты</string>
 
 </resources>
