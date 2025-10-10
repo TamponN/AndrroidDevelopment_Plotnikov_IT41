@@ -16,5 +16,10 @@
     <string name="label_login_button">Войти</string>
     <string name="example_name">Пример имени</string>
     <string name="label_open_list_button">Открыть список</string>
+    <string name="label_el_list">Список элементов</string>
+    <string name="button_text1">Элемент 1</string>
+    <string name="button_text2">Элемент 2</string>
+    <string name="choose_the_el">Выбрать элемент</string>
+
 
 </resources>

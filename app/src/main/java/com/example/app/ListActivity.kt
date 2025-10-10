@@ -4,7 +4,6 @@ package com.example.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.app.Activity
@@ -51,7 +50,7 @@ class ListActivity : AppCompatActivity() {
             // Устанавливаем результат (RESULT_OK) и Intent с данными
             setResult(Activity.RESULT_OK, resultIntent)
             // Завершаем текущее Activity, чтобы вернуться на предыдущее
-            finish() // Логика такова, что по нажатию на любое имя происходит возврат на предыдущий экран
+            finish() // Логика такова, что по нажатию на любое имя происходит возврат на предыдущий экран c передачей выбранного имени
         }
 
         // Устанавливаем адаптер для вьюхи
