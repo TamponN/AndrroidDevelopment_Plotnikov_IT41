@@ -10,11 +10,18 @@ import android.widget.Button
 import android.widget.Toast
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts // импорт для использования ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import android.app.Activity // импорт для использования Activity.RESULT_OK
+
+// Новые импорты для меню настроек
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.semantics.text
 
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
@@ -64,6 +71,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonOpenList = findViewById(R.id.buttonOpenList)
         _buttonOpenFragments = findViewById(R.id.buttonOpenFragments)
 
+        // Регистрация View для контекстного меню для текста на главной странице
+        registerForContextMenu(_textViewDisplay)
+
         // Слушатель события для активити
         _buttonOpenFragments.setOnClickListener {
             val intent = Intent(this, FragmentActivity::class.java)
@@ -110,6 +120,110 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             // Запускаем Activity с помощью лаунчера, ожидая результат
             getResultLauncher.launch(intent)
         }
+    }
+
+    // Создание Options Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Открываем наше меню из XML-файла
+        menuInflater.inflate(R.menu.main_options_menu, menu)
+        return true
+    }
+
+    // Обработка события нажания на элементы меню
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                Toast.makeText(this, "Нажаты Настройки", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_show_dialog -> {
+                // вызов функции, которая покажет диалог
+                showCustomDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    // Обработка события создания контекстного меню
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        // Проверяем, для какого View создается меню (допом можно будет ещё условий добавить)
+        if (v?.id == R.id.textViewDisplay) {
+            // Открываем наше контекстное меню из XML
+            menuInflater.inflate(R.menu.context_menu, menu)
+        }
+    }
+
+    // Обработка нажатий на пункты контекстного меню
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.context_action_edit -> {
+                Toast.makeText(this, "Выбран пункт 'Редактировать'", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.context_action_delete -> {
+                // Пока сделаем так, что при нажании кнопки "удалить" будет открываться стандартный диалог
+                showCustomDialog()
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
+    // Метод для показа стандартного алерта (не используется на данный момент)
+    private fun showStandardAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Стандартный диалог") // Заголовок
+            .setMessage("Вы действительно хотите выполнить это действие?") // Сообщение
+            .setIcon(android.R.drawable.ic_dialog_alert) // Иконка
+            .setPositiveButton("Да") { dialog, _ ->
+                // нажатие "Да"
+                Toast.makeText(this, "Вы нажали 'Да'", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Нет") { dialog, _ ->
+                // нажатие "Нет"
+                Toast.makeText(this, "Вы нажали 'Нет'", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            .setNeutralButton("Отмена") { dialog, _ ->
+                // нажатие "Отмена"
+                dialog.dismiss() // удаляем диалог
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    // Метод для показа кастомного диалога
+    private fun showCustomDialog() {
+        // Открываем кастомный макет
+        val customDialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(customDialogView) // Устанавливаем наш кастомный View
+
+        val dialog = builder.create()
+
+        // Находим элементы внутри кастомного диалога и вешаем обработчики
+        val editTextReason = customDialogView.findViewById<EditText>(R.id.editTextReason)
+        val buttonConfirm = customDialogView.findViewById<Button>(R.id.buttonConfirm)
+        val buttonCancel = customDialogView.findViewById<Button>(R.id.buttonCancel)
+
+        buttonConfirm.setOnClickListener {
+            val reason = editTextReason.text.toString()
+            Toast.makeText(this, "Причина: $reason", Toast.LENGTH_LONG).show()
+            _textViewDisplay.text = "Элемент удален" // Имитируем удаление
+            dialog.dismiss()
+        }
+
+        buttonCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     /*

@@ -20,5 +20,13 @@
     <string name="label_el_list">Список элементов</string>
     <string name="choose_the_el">Выбрать элемент</string>
     <string name="label_open_fragments_button">Открыть фрагменты</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_show_dialog">Показать диалог</string>
+    <string name="item_edit_text">Изменить</string>
+    <string name="item_delete_text">Удалить</string>
+    <string name="confirm_delete">Подвердите удаление</string>
+    <string name="enter_reason">Введите причину удаления (необязательно)</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirm">Подтвердить</string>
 
 </resources>
