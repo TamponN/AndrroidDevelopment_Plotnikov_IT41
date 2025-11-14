@@ -28,5 +28,6 @@
     <string name="enter_reason">Введите причину удаления (необязательно)</string>
     <string name="cancel">Отмена</string>
     <string name="confirm">Подтвердить</string>
+    <string name="label_settings">Настройки</string>
 
 </resources>

@@ -29,6 +29,11 @@
     <string name="enter_reason">Введите причину удаления (необязательно)</string>
     <string name="cancel">Отмена</string>
     <string name="confirm">Подтвердить</string>
+    <string name="label_settings">Настройки</string>
+    <string name="label_dark_mode">Тёмная тема</string>
+    <string name="label_saved_username">Имя пользователя для входа</string>
+    <string name="hint_saved_username">Введите имя пользователя</string>
+    <string name="button_save_settings">Сохранить</string>
 
 
 </resources>

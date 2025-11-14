@@ -21,7 +21,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.ui.semantics.text
+import androidx.appcompat.app.AppCompatDelegate
+
+// Новые импорты для состояния приложения
+import android.content.Context
 
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+         super.onCreate(savedInstanceState)
         enableEdgeToEdge() // включение отображения под системными элементами
         // Ставим свой макет в качестве основного
         setContentView(R.layout.activity_main)
@@ -120,6 +123,11 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             // Запускаем Activity с помощью лаунчера, ожидая результат
             getResultLauncher.launch(intent)
         }
+        // грузим тему из настроек
+        loadAndApplyTheme()
+
+        // грузим пользователя из настроек
+        loadUsername()
     }
 
     // Создание Options Menu
@@ -133,7 +141,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                Toast.makeText(this, "Нажаты Настройки", Toast.LENGTH_SHORT).show()
+                // запуск окна настроек
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
                 true
             }
             R.id.action_show_dialog -> {
@@ -224,6 +234,24 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         }
 
         dialog.show()
+    }
+
+    //  метод для загрузки и применения темы
+    private fun loadAndApplyTheme() {
+        val sharedPrefs = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPrefs.getBoolean("dark_mode", false)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    // метод для загрузки имени пользователя в поле ввода
+    private fun loadUsername() {
+        val sharedPrefs = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        val username = sharedPrefs.getString("username", "")
+        _editTextLogin.setText(username) // Устанавливаем загруженное имя в поле
     }
 
     /*

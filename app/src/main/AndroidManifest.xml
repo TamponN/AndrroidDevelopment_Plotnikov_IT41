@@ -36,6 +36,13 @@
             android:label="Фрагменты">
         </activity>
 
+        <!--        Активити для настроек -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="Настройки">
+        </activity>
+
     </application>
 
 </manifest>
