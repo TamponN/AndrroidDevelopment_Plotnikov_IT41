@@ -39,5 +39,8 @@
     <string name="label_file_content_hint">Text for a file</string>
     <string name="label_save_internal">Save</string>
     <string name="label_read_internal">Read</string>
+    <string name="button_text_for_db">WRITE(DB)</string>
+    <string name="button_read_notes">READ(DB)</string>
+    <string name="button_clear_notes">CLEAR(DB)</string>
 
 </resources>

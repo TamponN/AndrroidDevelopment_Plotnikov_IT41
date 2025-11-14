@@ -29,6 +29,10 @@ import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.concurrent.write
 
+// Импорты для работы с бд
+import android.content.ContentValues
+import android.provider.BaseColumns
+
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
     // Объявляем TAG для логирования
@@ -43,8 +47,12 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _buttonSaveInternal: Button
     private lateinit var _buttonReadInternal: Button
     private lateinit var _editTextFileContent: EditText
+    private lateinit var _buttonAddNote: Button
+    private lateinit var _buttonReadNotes: Button
+    private lateinit var _buttonClearNotes: Button
+    private lateinit var _dbHelper: DBHelper
 
-    // сохранение имени файла
+    // константа для сохранения имени файла
     private val _fileName = "internal_file_name.txt"
 
     //Создаем обработчик результата от другого Activity
@@ -76,6 +84,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         // Лог вызова метода onCreate
         Log.d(TAG, "onCreate: Activity создается")
 
+        // инициализация хэлпера
+        _dbHelper = DBHelper(this)
+
         // Инициализируем наши View элементы, находя их по ID из XML-макета
         _editTextLogin = findViewById(R.id.editTextLogin)
         _buttonLogin = findViewById(R.id.buttonLogin)
@@ -85,6 +96,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _editTextFileContent = findViewById(R.id.editTextFileContent)
         _buttonSaveInternal = findViewById(R.id.buttonSaveInternal)
         _buttonReadInternal = findViewById(R.id.buttonReadInternal)
+        _buttonAddNote = findViewById(R.id.buttonAddNote)
+        _buttonReadNotes = findViewById(R.id.buttonReadNotes)
+        _buttonClearNotes = findViewById(R.id.buttonClearNotes)
 
         // Регистрация View для контекстного меню для текста на главной странице
         registerForContextMenu(_textViewDisplay)
@@ -149,6 +163,83 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         // Чтение из внутреннего хранилища
         _buttonReadInternal.setOnClickListener {
             readFromInternalStorage()
+        }
+
+        // слушатель для добавления записки в базу
+        _buttonAddNote.setOnClickListener {
+            val db = _dbHelper.writableDatabase
+
+            val desc = _editTextFileContent.text.toString() // используем поле, которое было предназначено для записи
+            if (desc.isEmpty()) {
+                Toast.makeText(this, "Введите текст в поле выше", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val titleForNote = "Записка"
+            // Создаем объект для вставки данных в базу
+            val values = ContentValues().apply {
+                put(DatabaseContract.NotesEntry.COLUMN_NAME_TITLE, desc)
+                put(DatabaseContract.NotesEntry.COLUMN_NAME_DESCRIPTION, titleForNote)
+            }
+
+            // Вставляем новую строку и забираем айдишник
+            val newRowId = db.insert(DatabaseContract.NotesEntry.TABLE_NAME, null, values)
+
+            if (newRowId != -1L) {
+                Toast.makeText(this, "Запись добавлена с ID: $newRowId", Toast.LENGTH_SHORT).show()
+                _editTextFileContent.text.clear()
+            } else {
+                Toast.makeText(this, "Ошибка при добавлении записи", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Обработчик чтения записей
+        _buttonReadNotes.setOnClickListener {
+            val db = _dbHelper.readableDatabase
+
+            // Определяем столбцы
+            val projection = arrayOf(BaseColumns._ID, DatabaseContract.NotesEntry.COLUMN_NAME_TITLE, DatabaseContract.NotesEntry.COLUMN_NAME_DESCRIPTION)
+
+            // Выполняем запрос
+            val cursor = db.query(
+                DatabaseContract.NotesEntry.TABLE_NAME,
+                projection, // выбираемые столбцы
+                null,
+                null,
+                null,
+                null,
+                null
+            )
+
+            val notes = mutableListOf<String>()
+            // создаём курсор и пробегаемся по всем записям
+            with(cursor) {
+                while (moveToNext()) {
+                    val id = getLong(getColumnIndexOrThrow(BaseColumns._ID))
+                    val title = getString(getColumnIndexOrThrow(DatabaseContract.NotesEntry.COLUMN_NAME_TITLE))
+                    val description = getString(getColumnIndexOrThrow(DatabaseContract.NotesEntry.COLUMN_NAME_DESCRIPTION))
+                    notes.add("ID: $id\nЗаголовок: $title\nОписание: $description\n")
+                }
+            }
+            cursor.close()
+
+            // пихаем в то же вью с сепаратором
+            if (notes.isNotEmpty()) {
+                _textViewDisplay.text = notes.joinToString("\n")
+            } else {
+                _textViewDisplay.text = "В базе данных нет записей"
+            }
+            Toast.makeText(this, "Найдено записей: ${notes.size}", Toast.LENGTH_SHORT).show()
+        }
+
+        // обработчик удаления всех записей
+        _buttonClearNotes.setOnClickListener {
+            val db = _dbHelper.writableDatabase
+
+            // Удаляем все строки
+            val deletedRows = db.delete(DatabaseContract.NotesEntry.TABLE_NAME, null, null)
+            Toast.makeText(this, "Удалено записей: $deletedRows", Toast.LENGTH_SHORT).show()
+            _textViewDisplay.text = "База данных очищена"
         }
 
         // грузим тему из настроек
@@ -352,6 +443,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     }
 
     override fun onDestroy() {
+        _dbHelper.close() // закрываем соединение с базой после уничтожения
         super.onDestroy()
         // Логируем вызов метода onDestroy
         Log.d(TAG, "onDestroy: Activity уничтожается")
