@@ -25,6 +25,9 @@ import androidx.appcompat.app.AppCompatDelegate
 
 // Новые импорты для состояния приложения
 import android.content.Context
+import java.io.FileOutputStream
+import java.io.IOException
+import kotlin.concurrent.write
 
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
@@ -37,6 +40,12 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _textViewDisplay: TextView
     private lateinit var _buttonOpenList: Button
     private lateinit var _buttonOpenFragments: Button
+    private lateinit var _buttonSaveInternal: Button
+    private lateinit var _buttonReadInternal: Button
+    private lateinit var _editTextFileContent: EditText
+
+    // сохранение имени файла
+    private val _fileName = "internal_file_name.txt"
 
     //Создаем обработчик результата от другого Activity
     private val getResultLauncher = registerForActivityResult(
@@ -60,7 +69,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         enableEdgeToEdge() // включение отображения под системными элементами
         // Ставим свой макет в качестве основного
         setContentView(R.layout.activity_main)
@@ -73,6 +82,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _textViewDisplay = findViewById(R.id.textViewDisplay)
         _buttonOpenList = findViewById(R.id.buttonOpenList)
         _buttonOpenFragments = findViewById(R.id.buttonOpenFragments)
+        _editTextFileContent = findViewById(R.id.editTextFileContent)
+        _buttonSaveInternal = findViewById(R.id.buttonSaveInternal)
+        _buttonReadInternal = findViewById(R.id.buttonReadInternal)
 
         // Регистрация View для контекстного меню для текста на главной странице
         registerForContextMenu(_textViewDisplay)
@@ -123,6 +135,22 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             // Запускаем Activity с помощью лаунчера, ожидая результат
             getResultLauncher.launch(intent)
         }
+
+        // Обработчик нажатия на кпоку сохранения в файл
+        _buttonSaveInternal.setOnClickListener {
+            val textToSave = _editTextFileContent.text.toString()
+            if (textToSave.isNotEmpty()) {
+                saveToInternalStorage(textToSave)
+            } else {
+                Toast.makeText(this, "Введите текст для сохранения", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Чтение из внутреннего хранилища
+        _buttonReadInternal.setOnClickListener {
+            readFromInternalStorage()
+        }
+
         // грузим тему из настроек
         loadAndApplyTheme()
 
@@ -252,6 +280,41 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         val sharedPrefs = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
         val username = sharedPrefs.getString("username", "")
         _editTextLogin.setText(username) // Устанавливаем загруженное имя в поле
+    }
+
+    // метод сохранения файла в хранилище
+    private fun saveToInternalStorage(text: String) {
+        try {
+            // создаем файл в директории
+            val fileOutputStream: FileOutputStream = openFileOutput(_fileName, Context.MODE_PRIVATE)
+            // октрываем поток и записываем
+            fileOutputStream.write(text.toByteArray())
+            fileOutputStream.close()
+
+            Toast.makeText(this, "Файл сохранен во внутреннее хранилище", Toast.LENGTH_SHORT).show()
+            _editTextFileContent.text.clear() // Очищаем поле ввода
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, "Ошибка при сохранении файла", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // метод чтения файла из хранилища
+    private fun readFromInternalStorage() {
+        try {
+            val fileInputStream = openFileInput(_fileName) // ищем файл
+            // открываем поток и читаем содержимое
+            val content = fileInputStream.reader().readText()
+            fileInputStream.close()
+
+            // Отображаем содержимое в
+            _textViewDisplay.text = content
+            Toast.makeText(this, "Файл успешно прочитан", Toast.LENGTH_SHORT).show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            _textViewDisplay.text = "Файл не найден или пуст"
+            Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /*

@@ -34,6 +34,9 @@
     <string name="label_saved_username">Имя пользователя для входа</string>
     <string name="hint_saved_username">Введите имя пользователя</string>
     <string name="button_save_settings">Сохранить</string>
+    <string name="label_file_content_hint">Текст для сохранения в файл</string>
+    <string name="label_save_internal">Сохранить</string>
+    <string name="label_read_internal">Прочитать</string>
 
 
 </resources>

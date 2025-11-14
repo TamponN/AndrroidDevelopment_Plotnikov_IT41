@@ -140,5 +140,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/element_spacing_large"/>
 
+    <EditText
+        android:id="@+id/editTextFileContent"
+        style="@style/Widget.App.EditText"
+        android:autofillHints=""
+        android:hint="@string/label_file_content_hint"
+        app:layout_constraintTop_toBottomOf="@id/buttonOpenFragments"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/file_buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/editTextFileContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/buttonSaveInternal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_save_internal"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/buttonReadInternal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_read_internal"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
