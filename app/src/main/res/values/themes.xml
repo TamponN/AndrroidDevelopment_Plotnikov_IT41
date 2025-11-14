@@ -33,4 +33,5 @@
         <item name="android:textColor">@color/text_color_primary</item>
         <item name="android:layout_marginTop">@dimen/element_spacing_large</item>
     </style>
-</resources>
+
+    </resources>

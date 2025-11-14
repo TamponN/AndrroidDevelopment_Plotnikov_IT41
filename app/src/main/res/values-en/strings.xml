@@ -42,5 +42,8 @@
     <string name="button_text_for_db">WRITE(DB)</string>
     <string name="button_read_notes">READ(DB)</string>
     <string name="button_clear_notes">CLEAR(DB)</string>
+    <string name="name_for_note">Заголовок заметки</string>
+    <string name="text_for_note">Описание заметки</string>
+    <string name="add_new_note">Добавить новую заметку</string>
 
 </resources>

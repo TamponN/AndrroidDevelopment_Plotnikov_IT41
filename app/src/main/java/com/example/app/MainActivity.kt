@@ -59,21 +59,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private val getResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        // код выполнится когда ListActivity вернет результат
-        if (result.resultCode == Activity.RESULT_OK) {
-            // Извлекаем данные из Intent
-            val selectedName = result.data?.getStringExtra(ListActivity.SELECTED_NAME_KEY)
-
-            // Проверяем что имя не пустое и отображаем его
-            if (!selectedName.isNullOrEmpty()) {
-                val displayText = "Выбрано имя: $selectedName"
-                _textViewDisplay.text = displayText
-                Toast.makeText(this, displayText, Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            // Если пользователь просто вернулся назад, не выбрав элемент
-            Toast.makeText(this, "Имя не выбрано", Toast.LENGTH_SHORT).show()
-        }
+        // Возможно понадобится в будущем
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +67,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         enableEdgeToEdge() // включение отображения под системными элементами
         // Ставим свой макет в качестве основного
         setContentView(R.layout.activity_main)
+
         // Лог вызова метода onCreate
         Log.d(TAG, "onCreate: Activity создается")
 
@@ -132,22 +119,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
 
         // Обработчик нажатия на кнопку "октрыть список"
         _buttonOpenList.setOnClickListener {
-            // Получаем текст из поля для логина, который будем передавать между активити
-            val loginToPass = _editTextLogin.text.toString()
-
-            // Проверяем, что поле не пустое
-            if (loginToPass.isBlank()) {
-                Toast.makeText(this, "Сначала введите логин для передачи", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener // Прерываем выполнение, если логин пуст
-            }
-            // интент для перехода на новую активити
+            // Теперь просто запускаем активити без передачи логина
             val intent = Intent(this, ListActivity::class.java)
-
-            // передаём логин в Intent
-            intent.putExtra(ListActivity.LOGIN_KEY, loginToPass)
-
-            // Запускаем Activity с помощью лаунчера, ожидая результат
-            getResultLauncher.launch(intent)
+            startActivity(intent)
         }
 
         // Обработчик нажатия на кпоку сохранения в файл
