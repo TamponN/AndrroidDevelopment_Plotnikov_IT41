@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _buttonReadNotes: Button
     private lateinit var _buttonClearNotes: Button
     private lateinit var _dbHelper: DBHelper
+    private lateinit var _buttonOpenNetwork: Button
 
     // константа для сохранения имени файла
     private val _fileName = "internal_file_name.txt"
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonAddNote = findViewById(R.id.buttonAddNote)
         _buttonReadNotes = findViewById(R.id.buttonReadNotes)
         _buttonClearNotes = findViewById(R.id.buttonClearNotes)
+        _buttonOpenNetwork = findViewById(R.id.buttonOpenNetwork)
 
         // Регистрация View для контекстного меню для текста на главной странице
         registerForContextMenu(_textViewDisplay)
@@ -223,6 +225,11 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             val deletedRows = db.delete(DatabaseContract.NotesEntry.TABLE_NAME, null, null)
             Toast.makeText(this, "Удалено записей: $deletedRows", Toast.LENGTH_SHORT).show()
             _textViewDisplay.text = "База данных очищена"
+        }
+
+        _buttonOpenNetwork.setOnClickListener {
+            val intent = Intent(this, NetworkActivity::class.java)
+            startActivity(intent)
         }
 
         // грузим тему из настроек

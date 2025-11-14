@@ -43,6 +43,9 @@
     <string name="name_for_note">Заголовок заметки</string>
     <string name="text_for_note">Описание заметки</string>
     <string name="add_new_note">Добавить новую заметку</string>
+    <string name="label_title_for_post">Заголовок</string>
+    <string name="label_body_for_post">Тело поста</string>
+    <string name="button_start_network_activity">Посты</string>
 
 
 </resources>

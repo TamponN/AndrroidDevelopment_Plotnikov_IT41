@@ -44,6 +44,12 @@
             android:label="Настройки">
         </activity>
 
+        <activity
+            android:name=".NetworkActivity"
+            android:exported="false"
+            android:label="Сеть">
+        </activity>
+
     </application>
 
 </manifest>
