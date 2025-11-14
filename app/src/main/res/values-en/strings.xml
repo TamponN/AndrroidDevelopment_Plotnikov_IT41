@@ -42,11 +42,12 @@
     <string name="button_text_for_db">WRITE(DB)</string>
     <string name="button_read_notes">READ(DB)</string>
     <string name="button_clear_notes">CLEAR(DB)</string>
-    <string name="name_for_note">Заголовок заметки</string>
-    <string name="text_for_note">Описание заметки</string>
-    <string name="add_new_note">Добавить новую заметку</string>
-    <string name="label_title_for_post">Заголовок</string>
-    <string name="label_body_for_post">Тело поста</string>
-    <string name="button_start_network_activity">Посты</string>
+    <string name="name_for_note">Title</string>
+    <string name="text_for_note">Description</string>
+    <string name="add_new_note">Add new note</string>
+    <string name="label_title_for_post">Title</string>
+    <string name="label_body_for_post">Description</string>
+    <string name="button_start_network_activity">Posts</string>
+    <string name="button_start_map_activity">Map</string>
 
 </resources>

@@ -39,6 +39,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// импорты для карт
+import org.osmdroid.config.Configuration
+import android.preference.PreferenceManager
+import androidx.sqlite.db.SupportSQLiteOpenHelper
+
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
     // Объявляем TAG для логирования
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _buttonClearNotes: Button
     private lateinit var _dbHelper: DBHelper
     private lateinit var _buttonOpenNetwork: Button
+    private lateinit var _buttonOpenMap: Button
 
     // константа для сохранения имени файла
     private val _fileName = "internal_file_name.txt"
@@ -73,6 +79,11 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         super.onCreate(savedInstanceState)
         enableEdgeToEdge() // включение отображения под системными элементами
         // Ставим свой макет в качестве основного
+
+        Configuration.getInstance().load(
+            applicationContext,
+            PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        )
         setContentView(R.layout.activity_main)
 
         // Лог вызова метода onCreate
@@ -94,6 +105,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonReadNotes = findViewById(R.id.buttonReadNotes)
         _buttonClearNotes = findViewById(R.id.buttonClearNotes)
         _buttonOpenNetwork = findViewById(R.id.buttonOpenNetwork)
+        _buttonOpenMap = findViewById(R.id.buttonOpenMap)
 
         // Регистрация View для контекстного меню для текста на главной странице
         registerForContextMenu(_textViewDisplay)
@@ -232,6 +244,11 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             startActivity(intent)
         }
 
+        _buttonOpenMap.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+
         // грузим тему из настроек
         loadAndApplyTheme()
 
@@ -341,6 +358,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         buttonCancel.setOnClickListener {
             dialog.dismiss()
         }
+
 
         dialog.show()
     }

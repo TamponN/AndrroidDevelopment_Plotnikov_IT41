@@ -12,7 +12,8 @@
         android:text="@string/label_el_list"
         android:textSize="@dimen/text_size_default"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="65dp" />
 
     <Button
         android:id="@+id/buttonItem1"
