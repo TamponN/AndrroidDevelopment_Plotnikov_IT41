@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
 
         builder.setTitle("Стандартный диалог") // Заголовок
             .setMessage("Вы действительно хотите выполнить это действие?") // Сообщение
-            .setIcon(android.R.drawable.ic_dialog_alert) // Иконка
+            .setIcon(R.drawable.ic_app_logo) // Иконка
             .setPositiveButton("Да") { dialog, _ ->
                 // нажатие "Да"
                 Toast.makeText(this, "Вы нажали 'Да'", Toast.LENGTH_SHORT).show()
