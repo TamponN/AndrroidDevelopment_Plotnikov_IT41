@@ -32,6 +32,12 @@ import kotlin.concurrent.write
 // Импорты для работы с бд
 import android.content.ContentValues
 import android.provider.BaseColumns
+import androidx.compose.foundation.layout.size
+
+// импорты для requests
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() { // меняем наследованный класс на AppCompatActivity
 
@@ -204,6 +210,9 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
                 _textViewDisplay.text = "В базе данных нет записей"
             }
             Toast.makeText(this, "Найдено записей: ${notes.size}", Toast.LENGTH_SHORT).show()
+
+            // Запрос к API при нажатии на кнопку
+            getPostFromAPI()
         }
 
         // обработчик удаления всех записей
@@ -380,6 +389,43 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
             _textViewDisplay.text = "Файл не найден или пуст"
             Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getPostFromAPI() {
+        val networkTag = "NetworkRequest" // Отдельный тег для логов сети
+        Log.d(networkTag, "Запускаем сетевой запрос...")
+
+        // Выполняем запрос асинхронно
+        // enqueue - фоновый поток
+        // в качесте типа указываем созданную модель Post
+        RetrofitInstance.api.getPosts().enqueue(object : Callback<List<Post>> {
+
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                if (response.isSuccessful) {
+                    // Получаем тело
+                    val posts = response.body()
+                    if (posts != null) {
+                        Log.d(networkTag, "Успешно! Получено постов: ${posts.size}")
+
+                        // первые три поста
+                        posts.take(3).forEach {
+                            Log.d(networkTag, "ID: ${it.id}, Заголовок: ${it.title}")
+                        }
+                        Toast.makeText(this@MainActivity, "Данные из сети успешно загружены!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.w(networkTag, "Ответ успешный, но тело пустое")
+                    }
+                } else {
+                    Log.e(networkTag, "Ошибка ответа от сервера: ${response.code()}")
+                }
+            }
+
+            // ошибка сети
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                Log.e(networkTag, "Ошибка сети: ${t.message}")
+                Toast.makeText(this@MainActivity, "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     /*

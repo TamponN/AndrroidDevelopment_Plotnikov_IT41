@@ -63,4 +63,8 @@ dependencies {
     implementation(libs.material) // Добавил зависимости для Material Design компонентов
     implementation("androidx.appcompat:appcompat:1.7.1") // Зависимость для стилей приложения
     implementation("androidx.fragment:fragment-ktx:1.7.1") // Зависимость для fragment
+    // Retrofit для сетевых запросов
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Gson Converter для маппинга JSON в Kotlin объекты
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
