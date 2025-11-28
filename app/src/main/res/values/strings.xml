@@ -47,6 +47,7 @@
     <string name="label_body_for_post">Тело поста</string>
     <string name="button_start_network_activity">Посты</string>
     <string name="button_start_map_activity">Карта</string>
+    <string name="mvvm_demo">Открыть MVVM Demo</string>
 
 
 </resources>

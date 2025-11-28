@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
     private lateinit var _dbHelper: DBHelper
     private lateinit var _buttonOpenNetwork: Button
     private lateinit var _buttonOpenMap: Button
+    private lateinit var _buttonOpenMVVM: Button // новая кнопка для тестирования MVVM
 
     // константа для сохранения имени файла
     private val _fileName = "internal_file_name.txt"
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonClearNotes = findViewById(R.id.buttonClearNotes)
         _buttonOpenNetwork = findViewById(R.id.buttonOpenNetwork)
         _buttonOpenMap = findViewById(R.id.buttonOpenMap)
+        _buttonOpenMVVM = findViewById(R.id.buttonOpenMVVM) // новая кпока для тестирования MVVM
 
         // Регистрация View для контекстного меню для текста на главной странице
         registerForContextMenu(_textViewDisplay)
@@ -247,6 +249,13 @@ class MainActivity : AppCompatActivity() { // меняем наследован�
         _buttonOpenMap.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
+        }
+
+        // Обработчик для кнопки открытия MVVM
+        _buttonOpenMVVM.setOnClickListener {
+            val intent = Intent(this, MVVMActivity::class.java)
+            startActivity(intent)
+            Log.d(TAG, "Открываем MVVM Activity")
         }
 
         // грузим тему из настроек

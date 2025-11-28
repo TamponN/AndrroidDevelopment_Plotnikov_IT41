@@ -49,5 +49,6 @@
     <string name="label_body_for_post">Description</string>
     <string name="button_start_network_activity">Posts</string>
     <string name="button_start_map_activity">Map</string>
+    <string name="mvvm_demo">Открыть MVVM Demo</string>
 
 </resources>

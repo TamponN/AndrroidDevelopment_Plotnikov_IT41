@@ -166,11 +166,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="5dp"/>
 
+            <!-- Кнопка для активити MVVM-паттерна -->
+            <Button
+                android:id="@+id/buttonOpenMVVM"
+                android:text="@string/mvvm_demo"
+                style="@style/Widget.App.Button"
+                app:layout_constraintTop_toBottomOf="@+id/buttonOpenFragments"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp"/>
+
             <Button
                 android:id="@+id/buttonOpenMap"
                 android:text="@string/button_start_map_activity"
                 style="@style/Widget.App.Button"
-                app:layout_constraintTop_toBottomOf="@+id/buttonOpenNetwork"
+                app:layout_constraintTop_toBottomOf="@+id/buttonOpenMVVM"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="5dp"/>

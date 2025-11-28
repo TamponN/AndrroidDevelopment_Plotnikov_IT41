@@ -58,6 +58,12 @@
             android:label="Карта">
         </activity>
 
+        <activity
+            android:name=".MVVMActivity"
+            android:exported="false"
+            android:theme="@style/Theme.App">
+        </activity>
+
     </application>
 
 </manifest>
