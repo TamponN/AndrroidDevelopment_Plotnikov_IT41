@@ -47,8 +47,9 @@ android {
         release {
             // Применяем подпись
             signingConfig = signingConfigs.getByName("release")
-
-            isMinifyEnabled = false
+            // Уменьшаем размер приложения
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
