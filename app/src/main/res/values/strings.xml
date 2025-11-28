@@ -1,3 +1,53 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">Приложение</string>
+    <!-- Строки для MainActivity -->
+    <string name="hint_enter_text">Введите текст здесь</string>
+    <string name="button_show_text">Показать текст</string>
+    <string name="textview_default_text">Здесь будет отображен ваш текст</string>
+    <string name="toast_your_text">Ваш текст: %1$s</string> <!-- ФорматированнаяСтрока -->
+    <string name="toast_please_enter_text">Пожалуйста, введите текст</string>
+    <string name="textview_nothing_entered">Вы ничего не ввели</string>
+    <string name="label_login_text">Вход</string>
+
+    <!-- Описание для иконки -->
+    <string name="app_icon_description">Иконка приложения</string>
+    <string name="label_login_hint">Введите логин</string>
+    <string name="label_password_hint">Введите пароль</string>
+    <string name="label_login_button">Войти</string>
+    <string name="example_name">Пример имени</string>
+    <string name="label_open_list_button">Открыть список</string>
+    <string name="label_el_list">Список элементов</string>
+    <string name="button_text1">Элемент 1</string>
+    <string name="button_text2">Элемент 2</string>
+    <string name="choose_the_el">Выбрать элемент</string>
+    <string name="label_open_fragments_button">Открыть фрагменты</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_show_dialog">Показать диалог</string>
+    <string name="item_edit_text">Изменить</string>
+    <string name="item_delete_text">Удалить</string>
+    <string name="confirm_delete">Подвердите удаление</string>
+    <string name="enter_reason">Введите причину удаления (необязательно)</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="label_settings">Настройки</string>
+    <string name="label_dark_mode">Тёмная тема</string>
+    <string name="label_saved_username">Имя пользователя для входа</string>
+    <string name="hint_saved_username">Введите имя пользователя</string>
+    <string name="button_save_settings">Сохранить</string>
+    <string name="label_file_content_hint">Текст для сохранения в файл</string>
+    <string name="label_save_internal">Сохранить</string>
+    <string name="label_read_internal">Прочитать</string>
+    <string name="button_text_for_db">Добавить</string>
+    <string name="button_read_notes">Прочитать</string>
+    <string name="button_clear_notes">Очистить</string>
+    <string name="name_for_note">Заголовок заметки</string>
+    <string name="text_for_note">Описание заметки</string>
+    <string name="add_new_note">Добавить новую заметку</string>
+    <string name="label_title_for_post">Заголовок</string>
+    <string name="label_body_for_post">Тело поста</string>
+    <string name="button_start_network_activity">Посты</string>
+    <string name="button_start_map_activity">Карта</string>
+    <string name="mvvm_demo">Открыть MVVM Demo</string>
+
+
 </resources>

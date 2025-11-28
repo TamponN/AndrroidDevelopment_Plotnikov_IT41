@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Отступы -->
+    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="element_spacing_large">32dp</dimen>
+    <dimen name="element_spacing_medium">24dp</dimen>
+    <dimen name="element_spacing_small">16dp</dimen>
+    <dimen name="icon_spacing_top">24dp</dimen>
+
+    <!-- Размеры текста -->
+    <dimen name="text_size_default">18sp</dimen>
+    <dimen name="text_size_input">16sp</dimen>
+
+    <!-- Размеры для иконки -->
+    <dimen name="icon_size">48dp</dimen>
+</resources>

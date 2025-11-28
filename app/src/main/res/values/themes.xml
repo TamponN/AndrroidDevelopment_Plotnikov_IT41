@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.App" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Основные атрибуты темы -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <!-- Цвет фона по умолчанию для экранов -->
+        <item name="android:colorBackground">@color/app_background</item>
+        <!-- Стиль текста по умолчанию -->
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+    </style>
+    <!-- Стиль для полей ввода -->
+    <style name="Widget.App.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_input</item>
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:layout_marginTop">@dimen/element_spacing_large</item>
+    </style>
+    <!-- Стиль для кнопок -->
+    <style name="Widget.App.Button" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item> <!-- Или 0dp для match_constraint -->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/button_background_color</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:layout_marginTop">@dimen/element_spacing_medium</item>
+    </style>
+    <!-- Стиль для основного отображаемого текста -->
+    <style name="Widget.App.TextView.Display" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:layout_marginTop">@dimen/element_spacing_large</item>
+    </style>
 
-    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar" />
-</resources>
+    </resources>
